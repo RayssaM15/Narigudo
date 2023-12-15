@@ -100,36 +100,65 @@ input {
             <input type="number" placeholder="Digite seu telefone" id="tel"><br>
             <label for="email">Email</label><br>
             <input type="text" placeholder="Digite seu e-mail" id="email"><br>
-            <input onclick="validate()" id="button" type="submit" value="Enviar">
+            <input onclick="validate(event)" id="button" type="submit" value="Enviar"><br><br>
+            <div id="error-message"></div><br><br>
         </form>
     </div>
 
-    <script>
-        function validate() {
-            const Matricula = document.getElementById('matricula');
-            const CPF = document.getElementById('cpf');
-            const Telefone = document.getElementById('tel');
-            const Email = document.getElementById('email');
+<script>
+function validate(event) {
+    event.preventDefault();
 
-            Matricula.style.border = 'none';
-            CPF.style.border = 'none';
-            Telefone.style.border = 'none';
-            Email.style.border = 'none';
+    const Matricula = document.getElementById('matricula');
+    const CPF = document.getElementById('cpf');
+    const Telefone = document.getElementById('tel');
+    const Email = document.getElementById('email');
+    const errorMessageElement = document.getElementById('error-message');
 
-            if (!Matricula.value || !CPF.value || !Telefone.value || !Email.value) {
-                console.log('Digite algo!');
-                Matricula.style.border = '2px solid red';
-                CPF.style.border = '2px solid red';
-                Telefone.style.border = '2px solid red';
-                Email.style.border = '2px solid red';
-            } else if (!CPF.value) {
-                CPF.style.border = '2px solid red';
-            } else if (!Telefone.value) {
-                Telefone.style.border = '2px solid red';
-            } else if (!Email.value) {
-                Email.style.border = '2px solid red';
-            }
-        }
-    </script>
+    Matricula.style.border = 'none';
+    CPF.style.border = 'none';
+    Telefone.style.border = 'none';
+    Email.style.border = 'none';
+
+    errorMessageElement.innerHTML = '';  
+
+    let hasError = false;
+
+    if (!Matricula.value) {
+        errorMessageElement.innerHTML += 'Matrícula é obrigatória!<br>';
+        Matricula.style.border = '2px solid red';
+        hasError = true;
+    }
+
+    if (!CPF.value) {
+        errorMessageElement.innerHTML += 'CPF é obrigatório!<br>';
+        CPF.style.border = '2px solid red';
+        hasError = true;
+    }
+
+    if (!Telefone.value) {
+        errorMessageElement.innerHTML += 'Telefone é obrigatório!<br>';
+        Telefone.style.border = '2px solid red';
+        hasError = true;
+    }
+
+    if (!Email.value) {
+        errorMessageElement.innerHTML += 'Email é obrigatório!<br>';
+        Email.style.border = '2px solid red';
+        hasError = true;
+    }
+
+    if (hasError) {
+        errorMessageElement.style.color = 'red';
+        errorMessageElement.style.border = '2px solid red';
+        errorMessageElement.style.padding = '1em';
+        errorMessageElement.style.borderRadius = '5px';
+        errorMessageElement.style.marginTop = '1em';
+        errorMessageElement.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+    } else {
+        document.forms[0].submit();
+    }
+}
+</script>
 </body>
 </html>
