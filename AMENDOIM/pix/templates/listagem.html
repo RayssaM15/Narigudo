@@ -1,0 +1,11 @@
+<h1>Chaves cadastradas</h1>
+
+{% for chave in chaves %}
+
+    <p>
+        {{ chave.descricao }} pertence a matricula
+        {{ chave.conta.matricula }} e
+        tem saldo: R$ {{ chave.conta.saldo }}   
+    </p>
+    
+{% endfor %}
